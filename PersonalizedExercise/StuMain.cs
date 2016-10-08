@@ -227,6 +227,11 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiExam = new System.Windows.Forms.ToolStripMenuItem();
+            this.真题演练ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.高等数学ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.复变函数ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.概率统计ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.数学分析ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.试卷查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.高等数学ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复变函数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -263,11 +268,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.counterLable = new System.Windows.Forms.Label();
-            this.真题演练ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.高等数学ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.复变函数ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.概率统计ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.数学分析ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.msStudent.SuspendLayout();
             this.ssStudent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -328,6 +328,45 @@
             this.tsmiExam.Size = new System.Drawing.Size(68, 21);
             this.tsmiExam.Text = "考试管理";
             // 
+            // 真题演练ToolStripMenuItem
+            // 
+            this.真题演练ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.高等数学ToolStripMenuItem3,
+            this.复变函数ToolStripMenuItem3,
+            this.概率统计ToolStripMenuItem3,
+            this.数学分析ToolStripMenuItem3});
+            this.真题演练ToolStripMenuItem.Name = "真题演练ToolStripMenuItem";
+            this.真题演练ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.真题演练ToolStripMenuItem.Text = "真题演练";
+            // 
+            // 高等数学ToolStripMenuItem3
+            // 
+            this.高等数学ToolStripMenuItem3.Name = "高等数学ToolStripMenuItem3";
+            this.高等数学ToolStripMenuItem3.Size = new System.Drawing.Size(124, 22);
+            this.高等数学ToolStripMenuItem3.Text = "高等数学";
+            this.高等数学ToolStripMenuItem3.Click += new System.EventHandler(this.高等数学ToolStripMenuItem3_Click);
+            // 
+            // 复变函数ToolStripMenuItem3
+            // 
+            this.复变函数ToolStripMenuItem3.Name = "复变函数ToolStripMenuItem3";
+            this.复变函数ToolStripMenuItem3.Size = new System.Drawing.Size(124, 22);
+            this.复变函数ToolStripMenuItem3.Text = "复变函数";
+            this.复变函数ToolStripMenuItem3.Click += new System.EventHandler(this.复变函数ToolStripMenuItem3_Click);
+            // 
+            // 概率统计ToolStripMenuItem3
+            // 
+            this.概率统计ToolStripMenuItem3.Name = "概率统计ToolStripMenuItem3";
+            this.概率统计ToolStripMenuItem3.Size = new System.Drawing.Size(124, 22);
+            this.概率统计ToolStripMenuItem3.Text = "概率统计";
+            this.概率统计ToolStripMenuItem3.Click += new System.EventHandler(this.概率统计ToolStripMenuItem3_Click);
+            // 
+            // 数学分析ToolStripMenuItem3
+            // 
+            this.数学分析ToolStripMenuItem3.Name = "数学分析ToolStripMenuItem3";
+            this.数学分析ToolStripMenuItem3.Size = new System.Drawing.Size(124, 22);
+            this.数学分析ToolStripMenuItem3.Text = "数学分析";
+            this.数学分析ToolStripMenuItem3.Click += new System.EventHandler(this.数学分析ToolStripMenuItem3_Click);
+            // 
             // 试卷查询ToolStripMenuItem
             // 
             this.试卷查询ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -342,28 +381,28 @@
             // 高等数学ToolStripMenuItem
             // 
             this.高等数学ToolStripMenuItem.Name = "高等数学ToolStripMenuItem";
-            this.高等数学ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.高等数学ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.高等数学ToolStripMenuItem.Text = "高等数学";
             this.高等数学ToolStripMenuItem.Click += new System.EventHandler(this.高等数学ToolStripMenuItem_Click);
             // 
             // 复变函数ToolStripMenuItem
             // 
             this.复变函数ToolStripMenuItem.Name = "复变函数ToolStripMenuItem";
-            this.复变函数ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.复变函数ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.复变函数ToolStripMenuItem.Text = "复变函数";
             this.复变函数ToolStripMenuItem.Click += new System.EventHandler(this.复变函数ToolStripMenuItem_Click);
             // 
             // 概率统计ToolStripMenuItem
             // 
             this.概率统计ToolStripMenuItem.Name = "概率统计ToolStripMenuItem";
-            this.概率统计ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.概率统计ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.概率统计ToolStripMenuItem.Text = "概率统计";
             this.概率统计ToolStripMenuItem.Click += new System.EventHandler(this.概率统计ToolStripMenuItem_Click);
             // 
             // 数学分析ToolStripMenuItem
             // 
             this.数学分析ToolStripMenuItem.Name = "数学分析ToolStripMenuItem";
-            this.数学分析ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.数学分析ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.数学分析ToolStripMenuItem.Text = "数学分析";
             this.数学分析ToolStripMenuItem.Click += new System.EventHandler(this.数学分析ToolStripMenuItem_Click);
             // 
@@ -381,28 +420,28 @@
             // 高等数学ToolStripMenuItem1
             // 
             this.高等数学ToolStripMenuItem1.Name = "高等数学ToolStripMenuItem1";
-            this.高等数学ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.高等数学ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.高等数学ToolStripMenuItem1.Text = "高等数学";
             this.高等数学ToolStripMenuItem1.Click += new System.EventHandler(this.高等数学ToolStripMenuItem1_Click);
             // 
             // 复变函数ToolStripMenuItem1
             // 
             this.复变函数ToolStripMenuItem1.Name = "复变函数ToolStripMenuItem1";
-            this.复变函数ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.复变函数ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.复变函数ToolStripMenuItem1.Text = "复变函数";
             this.复变函数ToolStripMenuItem1.Click += new System.EventHandler(this.复变函数ToolStripMenuItem1_Click);
             // 
             // 概率统计ToolStripMenuItem1
             // 
             this.概率统计ToolStripMenuItem1.Name = "概率统计ToolStripMenuItem1";
-            this.概率统计ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.概率统计ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.概率统计ToolStripMenuItem1.Text = "概率统计";
             this.概率统计ToolStripMenuItem1.Click += new System.EventHandler(this.概率统计ToolStripMenuItem1_Click);
             // 
             // 数学分析ToolStripMenuItem1
             // 
             this.数学分析ToolStripMenuItem1.Name = "数学分析ToolStripMenuItem1";
-            this.数学分析ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.数学分析ToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.数学分析ToolStripMenuItem1.Text = "数学分析";
             this.数学分析ToolStripMenuItem1.Click += new System.EventHandler(this.数学分析ToolStripMenuItem1_Click);
             // 
@@ -427,7 +466,7 @@
             // 高等数学ToolStripMenuItem2
             // 
             this.高等数学ToolStripMenuItem2.Name = "高等数学ToolStripMenuItem2";
-            this.高等数学ToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.高等数学ToolStripMenuItem2.Size = new System.Drawing.Size(124, 22);
             this.高等数学ToolStripMenuItem2.Text = "高等数学";
             this.高等数学ToolStripMenuItem2.Visible = false;
             this.高等数学ToolStripMenuItem2.Click += new System.EventHandler(this.高等数学ToolStripMenuItem2_Click);
@@ -435,7 +474,7 @@
             // 复变函数ToolStripMenuItem2
             // 
             this.复变函数ToolStripMenuItem2.Name = "复变函数ToolStripMenuItem2";
-            this.复变函数ToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.复变函数ToolStripMenuItem2.Size = new System.Drawing.Size(124, 22);
             this.复变函数ToolStripMenuItem2.Text = "复变函数";
             this.复变函数ToolStripMenuItem2.Visible = false;
             this.复变函数ToolStripMenuItem2.Click += new System.EventHandler(this.复变函数ToolStripMenuItem2_Click);
@@ -443,7 +482,7 @@
             // 概率统计ToolStripMenuItem2
             // 
             this.概率统计ToolStripMenuItem2.Name = "概率统计ToolStripMenuItem2";
-            this.概率统计ToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.概率统计ToolStripMenuItem2.Size = new System.Drawing.Size(124, 22);
             this.概率统计ToolStripMenuItem2.Text = "概率统计";
             this.概率统计ToolStripMenuItem2.Visible = false;
             this.概率统计ToolStripMenuItem2.Click += new System.EventHandler(this.概率统计ToolStripMenuItem2_Click);
@@ -451,7 +490,7 @@
             // 数学分析ToolStripMenuItem2
             // 
             this.数学分析ToolStripMenuItem2.Name = "数学分析ToolStripMenuItem2";
-            this.数学分析ToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.数学分析ToolStripMenuItem2.Size = new System.Drawing.Size(124, 22);
             this.数学分析ToolStripMenuItem2.Text = "数学分析";
             this.数学分析ToolStripMenuItem2.Visible = false;
             this.数学分析ToolStripMenuItem2.Click += new System.EventHandler(this.数学分析ToolStripMenuItem2_Click);
@@ -467,7 +506,7 @@
             // mnuAbout
             // 
             this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Size = new System.Drawing.Size(100, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(152, 22);
             this.mnuAbout.Text = "关于";
             this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
@@ -500,8 +539,8 @@
             // toolStripStatusLabel6
             // 
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(194, 17);
-            this.toolStripStatusLabel6.Text = "2015 2645公司  //东北大学理学院";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(227, 17);
+            this.toolStripStatusLabel6.Text = "2015-2016 2645公司  //东北大学理学院";
             // 
             // toolStripStatusLabel8
             // 
@@ -622,45 +661,6 @@
             this.counterLable.Text = "\r\n";
             this.counterLable.Visible = false;
             // 
-            // 真题演练ToolStripMenuItem
-            // 
-            this.真题演练ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.高等数学ToolStripMenuItem3,
-            this.复变函数ToolStripMenuItem3,
-            this.概率统计ToolStripMenuItem3,
-            this.数学分析ToolStripMenuItem3});
-            this.真题演练ToolStripMenuItem.Name = "真题演练ToolStripMenuItem";
-            this.真题演练ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.真题演练ToolStripMenuItem.Text = "真题演练";
-            // 
-            // 高等数学ToolStripMenuItem3
-            // 
-            this.高等数学ToolStripMenuItem3.Name = "高等数学ToolStripMenuItem3";
-            this.高等数学ToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
-            this.高等数学ToolStripMenuItem3.Text = "高等数学";
-            this.高等数学ToolStripMenuItem3.Click += new System.EventHandler(this.高等数学ToolStripMenuItem3_Click);
-            // 
-            // 复变函数ToolStripMenuItem3
-            // 
-            this.复变函数ToolStripMenuItem3.Name = "复变函数ToolStripMenuItem3";
-            this.复变函数ToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
-            this.复变函数ToolStripMenuItem3.Text = "复变函数";
-            this.复变函数ToolStripMenuItem3.Click += new System.EventHandler(this.复变函数ToolStripMenuItem3_Click);
-            // 
-            // 概率统计ToolStripMenuItem3
-            // 
-            this.概率统计ToolStripMenuItem3.Name = "概率统计ToolStripMenuItem3";
-            this.概率统计ToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
-            this.概率统计ToolStripMenuItem3.Text = "概率统计";
-            this.概率统计ToolStripMenuItem3.Click += new System.EventHandler(this.概率统计ToolStripMenuItem3_Click);
-            // 
-            // 数学分析ToolStripMenuItem3
-            // 
-            this.数学分析ToolStripMenuItem3.Name = "数学分析ToolStripMenuItem3";
-            this.数学分析ToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
-            this.数学分析ToolStripMenuItem3.Text = "数学分析";
-            this.数学分析ToolStripMenuItem3.Click += new System.EventHandler(this.数学分析ToolStripMenuItem3_Click);
-            // 
             // StuMain
             // 
             this.BackColor = System.Drawing.Color.White;
@@ -693,7 +693,7 @@
 
         private void mnuAbout_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("大学数学个性化定制练习系统 v3.0.12910\n\n.新增功能\n1.个性化学习：已经做对过的题在新的练习中会被排除。\n2.离线练习：同步离线题库，随时随地学习。\n.删减功能\n本程序仅提供练习功能，其他功能请使用大学数学过程学习系统。\n.免责声明\n1.本程序仅学习使用，不做商业用途。\n2.用户自愿遵守软件服务协议和共享软件许可协议。\n3.东北大学理学院 保留所有权利\n\n祝您学习愉快\nAM小组 2645公司敬上");
+            MessageBox.Show("大学数学个性化定制练习系统 v3.2.12912\n\n.新增功能\n1.个性化学习：已经做对过的题在新的练习中会被排除。\n2.离线练习：同步离线题库，随时随地学习。\n3.真题演练：您使用的是尊贵的旗舰版，还附加试题感知功能。\n.删减功能\n本程序仅提供练习功能，其他功能请使用大学数学过程学习系统。\n.免责声明\n1.本程序仅学习使用，不做商业用途。\n2.用户自愿遵守软件服务协议和共享软件许可协议。\n3.东北大学理学院 保留所有权利\n\n祝您学习愉快\nAM小组 2645公司敬上");
             //new AboutForm().ShowDialog();
         }
 
