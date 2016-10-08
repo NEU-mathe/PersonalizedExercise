@@ -97,6 +97,9 @@
     <EmbeddedResource Include="StuMain.resx">
       <DependentUpon>StuMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="waitForm.resx">
+      <DependentUpon>waitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
