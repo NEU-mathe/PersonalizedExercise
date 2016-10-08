@@ -23,9 +23,9 @@
     public class onlieExercise : Form
     {
         private IContainer components;
-        private string exerciseChoice;
+        public string exerciseChoice;
         private WebBrowser wb;
-        private BackgroundWorker worker = new BackgroundWorker();
+        public BackgroundWorker worker = new BackgroundWorker();
         private TreeView treeView1;
         private TextBox textBox1;
         private Button button1;

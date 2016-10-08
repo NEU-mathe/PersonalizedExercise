@@ -149,11 +149,11 @@
         //    base.InvokeAsync("getStuScore", new object[] { key, stuNumber, dataSource }, this.getStuScoreOperationCompleted, userState);
         //}
 
-        //[SoapDocumentMethod("http://tempuri.org/getTemplate", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=SoapBindingUse.Literal, ParameterStyle=SoapParameterStyle.Wrapped)]
-        //public DataSet getTemplate(string key, string studentNumber, string type, string dataSource)
-        //{
-        //    return (DataSet) base.Invoke("getTemplate", new object[] { key, studentNumber, type, dataSource })[0];
-        //}
+        [SoapDocumentMethod("http://tempuri.org/getTemplate", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
+        public DataSet getTemplate(string key, string studentNumber, string type, string dataSource)
+        {
+            return (DataSet)base.Invoke("getTemplate", new object[] { key, studentNumber, type, dataSource })[0];
+        }
 
         //public void getTemplateAsync(string key, string studentNumber, string type, string dataSource)
         //{
