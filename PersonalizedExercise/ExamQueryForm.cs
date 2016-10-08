@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using fakepack;
 using ExamSysWinform._01考试管理;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
 
 namespace PersonalizedExercise
 {
@@ -58,6 +61,41 @@ namespace PersonalizedExercise
 
             this.Close();
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string[] str = FakePack.ExamTemplate(subject, textBox1.Text, comboBox1.SelectedIndex);
+            string[] str2 = FakePack.ExamTemplate(str);
+            string str_l = "";
+            int cnt = 0;
+            foreach (string s in str2)
+                if (s != null && s != "")
+                    str_l += s + ',';
+
+            //从*.zip到*
+            str_l = str_l.Replace(".zip", "");
+
+            string gu = Guid.NewGuid().ToString();
+            string tempdir = Environment.GetEnvironmentVariable("TEMP");
+            Directory.CreateDirectory(tempdir + "\\2645\\AMCalTor\\ans\\" + gu);
+
+            try
+            {
+                onlieExercise oe = new onlieExercise(this.wb, false, subject);
+                oe.exerciseChoice = str_l;
+                oe.worker_DoWork(sender, new DoWorkEventArgs(e));
+                Thread th = new Thread(delegate ()
+                {
+                    CreateAnswerSheet.cas(gu, str_l);
+                    Process.Start(tempdir + "\\2645\\AMCalTor\\ans\\" + gu + "\\Ans.doc");
+                    oe.worker_RunWorkerCompleted(sender, new RunWorkerCompletedEventArgs(e, new Exception(), false));
+                });
+                th.Start();
+            }
+            catch (Exception) { }
+
+            this.Close();
         }
     }
 }

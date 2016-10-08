@@ -276,7 +276,7 @@
         {
         }
 
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        public void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             this.Cursor = Cursors.AppStarting;
             WaitFormService.CreateWaitForm("正在下载选择题");
@@ -292,7 +292,7 @@
         {
         }
 
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        public void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             string[] collection = this.exerciseChoice.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             WaitFormService.CloseWaitForm();
