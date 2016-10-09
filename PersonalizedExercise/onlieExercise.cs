@@ -18,6 +18,7 @@
     using System.Net;
     using Test;
     using FtpTest;
+    using System.Threading;
 
     [ComVisible(true)]
     public class onlieExercise : Form
@@ -160,17 +161,18 @@
                         responseStream.Close();
                         response.Close();
                         WaitFormService.SetWaitFormCaption(string.Concat(new object[] { "共", strArray.Length, "道选择题，正在下载第", i + 1, "个选择题" }));
-                        Process myProcess = new Process();
-                        ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("WinRAR.exe", "e -y "
-                            + "Download\\" + strArray[i] + ".zip "
-                            + "Download\\");
-                        myProcessStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        myProcess.StartInfo = myProcessStartInfo;
-                        myProcess.Start();
-                        while (!myProcess.HasExited)
-                        {
-                            myProcess.WaitForExit();
-                        }
+                        //Process myProcess = new Process();
+                        //ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("WinRAR.exe", "e -y "
+                        //    + "Download\\" + strArray[i] + ".zip "
+                        //    + "Download\\");
+                        //myProcessStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        //myProcess.StartInfo = myProcessStartInfo;
+                        //myProcess.Start();
+                        //while (!myProcess.HasExited)
+                        //{
+                        //    myProcess.WaitForExit();
+                        //}
+                        ZipHelper.Zip.Extract(Directory.GetCurrentDirectory() + "\\Download\\" + strArray[i] + ".zip", Directory.GetCurrentDirectory() + "\\Download\\", 0x400);
                     }
                 }
                 WaitFormService.CloseWaitForm();
@@ -320,135 +322,139 @@
         //确定按钮
         private void button1_Click(object sender, EventArgs e)
         {
-            //遍历最底层选中节点
-            string str = "";
-            foreach (TreeNode tn1 in treeView1.Nodes)
-            {
-                if (tn1.GetNodeCount(false) == 0 && tn1.Checked)
-                    str += tn1.Name + ",";
-                foreach (TreeNode tn2 in tn1.Nodes)
-                {
-                    if (tn2.GetNodeCount(false) == 0 && tn2.Checked)
-                        str += tn2.Name + ",";
-                    foreach (TreeNode tn3 in tn2.Nodes)
-                    {
-                        if (tn3.Checked)
-                            str += tn3.Name.ToString() + ",";
-                    }
-                }
-            }
-            string[] a = str.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            List<string> T = a.ToList<string>();
-            Dictionary<int, string> dic = new Dictionary<int, string>();
-            int count = 0;
-            if (ixOffline)
-            {
-                try
-                {
-                    //遍历离线题库
-                    foreach (string s in T)
-                    {
-                        foreach (string ss in Directory.GetDirectories("ChoiceSource\\" + subject + "\\" + s))
-                        {
-                            foreach (string sss in Directory.GetFiles(ss))
-                            {
-                                dic.Add(++count, sss);
-                            }
-                        }
-                    }
-                }
-                catch (System.IO.DirectoryNotFoundException) 
-                {
-                    MessageBox.Show("离线试题库不完整，请更新题库！");
-                }
-            }
-            else
-            {
-                try
-                {
-                    //遍历在线题库
-                    foreach (string s in T)
-                    {
-                        foreach (string ss in DownloadFolder.ftpGetDir("ftp://202.118.26.80/ChoiceSource/"+subject+"/"+s,""))
-                        {
-                            
-                            foreach (string sss in DownloadFolder.GetFtpFileList(ss, WebRequestMethods.Ftp.ListDirectory))
-                            {
-                                dic.Add(++count, sss);
-                            }
-                            
-                        }
-                    }
-                }
-                catch (Exception) { MessageBox.Show("题库中没有相应的题！"); }
-            }
-
-            //随机抽取试题
-            int[] myRandoms = new int[25];
-            for (int i = 0; i < (25 < count ? 25 : count); ++i)
-            {
-                int myRandom;
-                bool flag = false;
-                do
-                {
-                    myRandom = new Random(Guid.NewGuid().GetHashCode()).Next(1, count + 1);
-                    Debug.WriteLine(myRandom);
-                    myRandoms[i] = myRandom;
-                    flag = false;
-                    for (int j = 0; j < i; ++j)
-                    {
-                        if (myRandoms[j] == myRandom)  //1 2 3 4 5 6 7  myran=1
-                            flag = true;
-                    }
-                } while (flag);
-            }
-            string str2 = "";
-            for (int i = 0; i < (25 < count ? 25 : count); ++i)
-            {
-                Debug.WriteLine(dic[myRandoms[i]]);
-                str2 += dic[myRandoms[i]] + ",";
-            }
-
-            if (ixOffline)
-            {
-                //从ChoiceSource\...\*.zip到*.zip
-                string[] strArray = str2.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                str2 = "";
-                string[] strArray_2 = new String[5];
-                for (int i = 0; i < strArray.Length; i++)
-                {
-                    strArray_2 = strArray[i].Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
-                    str2 += strArray_2[4] + ",";
-                }
-            }
-            //从*.zip到*
-            str2 = str2.Replace(".zip", "");
-
-            //删除做对过的题
-            string[] strList1 = str2.Split(',');
-            string done = "";
-            if (File.Exists("OkayChoice_"+subject+".txt"))
-            {
-                FileStream aFile = new FileStream("OkayChoice_"+subject+".txt", FileMode.Open);
-                StreamReader sw = new StreamReader(aFile);
-                done = sw.ReadToEnd();
-                sw.Close();
-                aFile.Close();
-            }
-            for (int i = 0; i < strList1.Length; ++i)
-            {
-                if (done.Contains(strList1[i]))
-                    strList1[i] = "";
-            }
-            string strList2 = string.Join(",", strList1);
-            strList2 = strList2.Replace(",,", ",");
-            this.exerciseChoice = strList2;
-
-            //完成
-            this.worker.WorkerReportsProgress = true;
-            this.worker.RunWorkerAsync();
             base.Close();
+            Thread th = new Thread(delegate ()
+            {
+                //遍历最底层选中节点
+                string str = "";
+                foreach (TreeNode tn1 in treeView1.Nodes)
+                {
+                    if (tn1.GetNodeCount(false) == 0 && tn1.Checked)
+                        str += tn1.Name + ",";
+                    foreach (TreeNode tn2 in tn1.Nodes)
+                    {
+                        if (tn2.GetNodeCount(false) == 0 && tn2.Checked)
+                            str += tn2.Name + ",";
+                        foreach (TreeNode tn3 in tn2.Nodes)
+                        {
+                            if (tn3.Checked)
+                                str += tn3.Name.ToString() + ",";
+                        }
+                    }
+                }
+                string[] a = str.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                List<string> T = a.ToList<string>();
+                Dictionary<int, string> dic = new Dictionary<int, string>();
+                int count = 0;
+                if (ixOffline)
+                {
+                    try
+                    {
+                        //遍历离线题库
+                        foreach (string s in T)
+                        {
+                            foreach (string ss in Directory.GetDirectories("ChoiceSource\\" + subject + "\\" + s))
+                            {
+                                foreach (string sss in Directory.GetFiles(ss))
+                                {
+                                    dic.Add(++count, sss);
+                                }
+                            }
+                        }
+                    }
+                    catch (System.IO.DirectoryNotFoundException)
+                    {
+                        MessageBox.Show("离线试题库不完整，请更新题库！");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        //遍历在线题库
+                        foreach (string s in T)
+                        {
+                            foreach (string ss in DownloadFolder.ftpGetDir("ftp://202.118.26.80/ChoiceSource/" + subject + "/" + s, ""))
+                            {
 
+                                foreach (string sss in DownloadFolder.GetFtpFileList(ss, WebRequestMethods.Ftp.ListDirectory))
+                                {
+                                    dic.Add(++count, sss);
+                                }
+
+                            }
+                        }
+                    }
+                    catch (Exception) { MessageBox.Show("题库中没有相应的题！"); }
+                }
+
+                //随机抽取试题
+                int[] myRandoms = new int[25];
+                for (int i = 0; i < (25 < count ? 25 : count); ++i)
+                {
+                    int myRandom;
+                    bool flag = false;
+                    do
+                    {
+                        myRandom = new Random(Guid.NewGuid().GetHashCode()).Next(1, count + 1);
+                        Debug.WriteLine(myRandom);
+                        myRandoms[i] = myRandom;
+                        flag = false;
+                        for (int j = 0; j < i; ++j)
+                        {
+                            if (myRandoms[j] == myRandom)  //1 2 3 4 5 6 7  myran=1
+                                flag = true;
+                        }
+                    } while (flag);
+                }
+                string str2 = "";
+                for (int i = 0; i < (25 < count ? 25 : count); ++i)
+                {
+                    Debug.WriteLine(dic[myRandoms[i]]);
+                    str2 += dic[myRandoms[i]] + ",";
+                }
+
+                if (ixOffline)
+                {
+                    //从ChoiceSource\...\*.zip到*.zip
+                    string[] strArray = str2.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    str2 = "";
+                    string[] strArray_2 = new String[5];
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        strArray_2 = strArray[i].Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+                        str2 += strArray_2[4] + ",";
+                    }
+                }
+                //从*.zip到*
+                str2 = str2.Replace(".zip", "");
+
+                //删除做对过的题
+                string[] strList1 = str2.Split(',');
+                string done = "";
+                if (File.Exists("OkayChoice_" + subject + ".txt"))
+                {
+                    FileStream aFile = new FileStream("OkayChoice_" + subject + ".txt", FileMode.Open);
+                    StreamReader sw = new StreamReader(aFile);
+                    done = sw.ReadToEnd();
+                    sw.Close();
+                    aFile.Close();
+                }
+                for (int i = 0; i < strList1.Length; ++i)
+                {
+                    if (done.Contains(strList1[i]))
+                        strList1[i] = "";
+                }
+                string strList2 = string.Join(",", strList1);
+                strList2 = strList2.Replace(",,", ",");
+                this.exerciseChoice = strList2;
+
+                //完成
+                this.worker.WorkerReportsProgress = true;
+                this.worker.RunWorkerAsync();
+            });
+            th.IsBackground = true;
+            th.Start();
         }
 
 
