@@ -161,17 +161,18 @@
                         responseStream.Close();
                         response.Close();
                         WaitFormService.SetWaitFormCaption(string.Concat(new object[] { "共", strArray.Length, "道选择题，正在下载第", i + 1, "个选择题" }));
-                        Process myProcess = new Process();
-                        ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("WinRAR.exe", "e -y "
-                            + "Download\\" + strArray[i] + ".zip "
-                            + "Download\\");
-                        myProcessStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        myProcess.StartInfo = myProcessStartInfo;
-                        myProcess.Start();
-                        while (!myProcess.HasExited)
-                        {
-                            myProcess.WaitForExit();
-                        }
+                        //Process myProcess = new Process();
+                        //ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("WinRAR.exe", "e -y "
+                        //    + "Download\\" + strArray[i] + ".zip "
+                        //    + "Download\\");
+                        //myProcessStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        //myProcess.StartInfo = myProcessStartInfo;
+                        //myProcess.Start();
+                        //while (!myProcess.HasExited)
+                        //{
+                        //    myProcess.WaitForExit();
+                        //}
+                        ZipHelper.Zip.Extract(Directory.GetCurrentDirectory() + "\\Download\\" + strArray[i] + ".zip", Directory.GetCurrentDirectory() + "\\Download\\", 0x400);
                     }
                 }
                 WaitFormService.CloseWaitForm();
