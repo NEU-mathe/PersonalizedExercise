@@ -54,9 +54,16 @@
             catch (Exception)
             {
                 MessageBox.Show("与服务器通信失败！请检查网络或使用离线版。");
-                base.Close();
-                return;
+                //base.Close();
+                //return;
             }
+            finally
+            {
+                this.worker.DoWork += new DoWorkEventHandler(this.worker_DoWork);
+                this.worker.ProgressChanged += new ProgressChangedEventHandler(this.worker_ProgressChanged);
+                this.worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.worker_RunWorkerCompleted);
+            }
+
             treeView1.Nodes.Clear();
             List<choicenode> choices = choicenode.getChoiceList(subject+".ini");
             //generate tree
@@ -81,10 +88,6 @@
                     }
                 }
             }
-            this.worker.DoWork += new DoWorkEventHandler(this.worker_DoWork);
-            this.worker.ProgressChanged += new ProgressChangedEventHandler(this.worker_ProgressChanged);
-            this.worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.worker_RunWorkerCompleted);
-
         }
         private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
         {
