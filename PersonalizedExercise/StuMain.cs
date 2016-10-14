@@ -294,14 +294,14 @@
             this.toolStripSeparator1,
             this.tsmiExit});
             this.tsmiSelfInfo.Name = "tsmiSelfInfo";
-            this.tsmiSelfInfo.Size = new System.Drawing.Size(68, 21);
-            this.tsmiSelfInfo.Text = "个人信息";
+            this.tsmiSelfInfo.Size = new System.Drawing.Size(44, 21);
+            this.tsmiSelfInfo.Text = "文件";
             // 
             // tsmiBaseInfo
             // 
             this.tsmiBaseInfo.Name = "tsmiBaseInfo";
-            this.tsmiBaseInfo.Size = new System.Drawing.Size(124, 22);
-            this.tsmiBaseInfo.Text = "基本资料";
+            this.tsmiBaseInfo.Size = new System.Drawing.Size(152, 22);
+            this.tsmiBaseInfo.Text = "打印";
             this.tsmiBaseInfo.Click += new System.EventHandler(this.tsmiBaseInfo_Click);
             // 
             // toolStripSeparator1
@@ -678,6 +678,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "学生窗口 - 大学数学个性化定制练习系统";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StuMain_FormClosed);
             this.Load += new System.EventHandler(this.StuMain_Load);
             this.msStudent.ResumeLayout(false);
             this.msStudent.PerformLayout();
@@ -693,7 +694,7 @@
 
         private void mnuAbout_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("大学数学个性化定制练习系统 v3.4.12915(Emergency Version)\n\n.新增功能\n1.个性化学习：已经做对过的题在新的练习中会被排除。\n2.离线练习：同步离线题库，随时随地学习。\n3.真题演练：您使用的是尊贵的旗舰版，还附加试题感知功能。\n.删减功能\n本程序仅提供练习功能，其他功能请使用大学数学过程学习系统。\n.免责声明\n1.本程序仅学习使用，不做商业用途。\n2.用户自愿遵守软件服务协议和共享软件许可协议。\n3.东北大学理学院 保留所有权利\n\n祝您学习愉快\nAM小组 2645公司敬上");
+            MessageBox.Show("大学数学个性化定制练习系统 v3.6.12916\n\n.新增功能\n1.个性化学习：已经做对过的题在新的练习中会被排除。\n2.离线练习：同步离线题库，随时随地学习。\n3.打印试题：打印试题到PDF文档，方便用手机刷题。\n.删减功能\n本程序仅提供练习功能，其他功能请使用大学数学过程学习系统。\n.免责声明\n1.本程序仅学习使用，不做商业用途。\n2.用户自愿遵守软件服务协议和共享软件许可协议。\n3.东北大学理学院 保留所有权利\n\n祝您学习愉快\nAM小组 2645公司敬上");
             //new AboutForm().ShowDialog();
         }
 
@@ -740,13 +741,13 @@
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             //WaitFormService.CloseWaitForm();
-            DirectoryInfo di = new DirectoryInfo("Download");
+            //DirectoryInfo di = new DirectoryInfo("Download");
             this.initControl();
             if (true)//是练习，显示提交按钮
             {
                 this.btn_ok.Show();
                 isExercise = false;
-                try { di.Delete(true); } catch (Exception) { }
+                //try { di.Delete(true); } catch (Exception) { }
             }
             //else if (!selectModel.IsShowStuPaper)//是考试，显示计时器
             //{
@@ -808,7 +809,7 @@
 
         private void tsmiBaseInfo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("此功能已下线，如需此功能请使用大学数学过程学习系统!");
+            webBrowser1.ShowPrintDialog();
         }
 
 
@@ -1054,6 +1055,12 @@
             this.initControl();
             name = "数学分析_SF";
             new ExamQueryForm(this.webBrowser1, "数学分析_SF").ShowDialog();
+        }
+
+        private void StuMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DirectoryInfo di = new DirectoryInfo("Download");
+            try { di.Delete(true); } catch (Exception) { }
         }
     }
 }

@@ -54,8 +54,6 @@
             catch (Exception)
             {
                 MessageBox.Show("与服务器通信失败！请检查网络或使用离线版。");
-                //base.Close();
-                //return;
             }
             finally
             {
@@ -88,6 +86,9 @@
                     }
                 }
             }
+
+            DirectoryInfo di = new DirectoryInfo("Download");
+            try { di.Delete(true); } catch (Exception) { }
         }
         private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
         {
