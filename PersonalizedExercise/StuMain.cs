@@ -3,7 +3,7 @@
     using ExamSysWinform._01考试管理;
     using ExamSysWinform.Utils;
     using ExamSysWinform.WebService;
-    //    using Sunisoft.IrisSkin;
+    using Sunisoft.IrisSkin;
     using System;
     using System.ComponentModel;
     using System.Drawing;
@@ -43,7 +43,6 @@
         private System.Windows.Forms.Timer saveStudentAnwserTick;
 //        public static ClientExamTemplate selectModel;
         private Label showExamTime;
-//        private SkinEngine skinEngine1;
         private TimeSpan span;
         private StatusStrip ssStudent;
         private System.Windows.Forms.Timer timer1;
@@ -79,6 +78,7 @@
         private ToolStripMenuItem 更新题目计数ToolStripMenuItem;
         
         public Label counterLable;
+        private SkinEngine skinEngine1;
         public static bool saveChoiceOnly = false;
 
 
@@ -258,6 +258,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.counterLable = new System.Windows.Forms.Label();
+            this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
             this.msStudent.SuspendLayout();
             this.ssStudent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -290,19 +291,19 @@
             // tsmiBaseInfo
             // 
             this.tsmiBaseInfo.Name = "tsmiBaseInfo";
-            this.tsmiBaseInfo.Size = new System.Drawing.Size(152, 22);
+            this.tsmiBaseInfo.Size = new System.Drawing.Size(100, 22);
             this.tsmiBaseInfo.Text = "打印";
             this.tsmiBaseInfo.Click += new System.EventHandler(this.tsmiBaseInfo_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(124, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(100, 22);
             this.tsmiExit.Text = "退出";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -611,6 +612,15 @@
             this.counterLable.Text = "\r\n";
             this.counterLable.Visible = false;
             // 
+            // skinEngine1
+            // 
+            this.skinEngine1.@__DrawButtonFocusRectangle = true;
+            this.skinEngine1.DisabledButtonTextColor = System.Drawing.Color.Gray;
+            this.skinEngine1.DisabledMenuFontColor = System.Drawing.SystemColors.GrayText;
+            this.skinEngine1.InactiveCaptionColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.skinEngine1.SerialNumber = "";
+            this.skinEngine1.SkinFile = null;
+            // 
             // StuMain
             // 
             this.BackColor = System.Drawing.Color.White;
@@ -644,15 +654,15 @@
 
         private void mnuAbout_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("大学数学个性化定制练习系统 v3.6.12916\n\n.新增功能\n1.个性化学习：已经做对过的题在新的练习中会被排除。\n2.离线练习：同步离线题库，随时随地学习。\n3.打印试题：打印试题到PDF文档，方便用手机刷题。\n.删减功能\n本程序仅提供练习功能，其他功能请使用大学数学过程学习系统。\n.免责声明\n1.本程序仅学习使用，不做商业用途。\n2.用户自愿遵守软件服务协议和共享软件许可协议。\n3.东北大学理学院 保留所有权利\n\n祝您学习愉快\nAM小组 2645公司敬上");
+            MessageBox.Show("大学数学个性化定制练习系统 v3.6.12917\n\n.新增功能\n1.个性化学习：已经做对过的题在新的练习中会被排除。\n2.离线练习：同步离线题库，随时随地学习。\n3.打印试题：打印试题到PDF文档，方便用手机刷题。\n.删减功能\n本程序仅提供练习功能，其他功能请使用大学数学过程学习系统。\n.免责声明\n1.本程序仅学习使用，不做商业用途。\n2.用户自愿遵守软件服务协议和共享软件许可协议。\n3.东北大学理学院 保留所有权利\n\n祝您学习愉快\nAM小组 2645公司敬上");
             //new AboutForm().ShowDialog();
         }
 
         private void StuMain_Load(object sender, EventArgs e)
         {
             this.initControl();
-           // base.Icon = Resource.Icon;
-           // this.skinEngine1.SkinFile = @"skin\Midsummer.ssk";
+            // base.Icon = Resource.Icon;
+            this.skinEngine1.SkinFile = @"skin\Midsummer.ssk";
             this.timer1.Start();
             this.timer1.Tick += new EventHandler(this.timer1_Tick);
             this.lblLoginType.Text = this.name ;
