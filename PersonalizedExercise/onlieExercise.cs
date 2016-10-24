@@ -120,17 +120,7 @@
                         }
                         System.IO.File.Copy("ChoiceSource\\" + subject + "\\" + strArray2[0] + "\\" + strArray2[1] + "\\" + strArray[i] + ".zip" , "Download\\" + strArray[i] + ".zip", true);
                         WaitFormService.SetWaitFormCaption(string.Concat(new object[] { "共", strArray.Length, "道选择题，正在下载第", i + 1, "个选择题" }));
-                        Process myProcess = new Process();
-                        ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("WinRAR.exe", "e -y "
-                            + "Download\\" + strArray[i] + ".zip "
-                            + "Download\\");
-                        myProcessStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        myProcess.StartInfo = myProcessStartInfo;
-                        myProcess.Start();
-                        while (!myProcess.HasExited)
-                        {
-                            myProcess.WaitForExit();
-                        }
+                        ZipHelper.Zip.Extract(Directory.GetCurrentDirectory() + "\\Download\\" + strArray[i] + ".zip", Directory.GetCurrentDirectory() + "\\Download\\", 0x400);
 
                     }
                 }
@@ -165,17 +155,6 @@
                         responseStream.Close();
                         response.Close();
                         WaitFormService.SetWaitFormCaption(string.Concat(new object[] { "共", strArray.Length, "道选择题，正在下载第", i + 1, "个选择题" }));
-                        //Process myProcess = new Process();
-                        //ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("WinRAR.exe", "e -y "
-                        //    + "Download\\" + strArray[i] + ".zip "
-                        //    + "Download\\");
-                        //myProcessStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        //myProcess.StartInfo = myProcessStartInfo;
-                        //myProcess.Start();
-                        //while (!myProcess.HasExited)
-                        //{
-                        //    myProcess.WaitForExit();
-                        //}
                         ZipHelper.Zip.Extract(Directory.GetCurrentDirectory() + "\\Download\\" + strArray[i] + ".zip", Directory.GetCurrentDirectory() + "\\Download\\", 0x400);
                     }
                 }
@@ -331,31 +310,29 @@
             {
                 //遍历最底层选中节点
                 string str = "";
-                foreach (TreeNode tn1 in treeView1.Nodes)
+                Stack<TreeNode> stk = new Stack<TreeNode>();
+                foreach (TreeNode tn in treeView1.Nodes)
+                    stk.Push(tn);
+                while(stk.Count != 0)
                 {
-                    if (tn1.GetNodeCount(false) == 0 && tn1.Checked)
-                        str += tn1.Name + ",";
-                    foreach (TreeNode tn2 in tn1.Nodes)
-                    {
-                        if (tn2.GetNodeCount(false) == 0 && tn2.Checked)
-                            str += tn2.Name + ",";
-                        foreach (TreeNode tn3 in tn2.Nodes)
-                        {
-                            if (tn3.Checked)
-                                str += tn3.Name.ToString() + ",";
-                        }
-                    }
+                    TreeNode tn = stk.Pop();
+                    if (tn.GetNodeCount(false) != 0)
+                        foreach (TreeNode child in tn.Nodes)
+                            stk.Push(child);
+                    else if(tn.Checked)
+                        str += tn.Name + ",";
                 }
+
                 string[] a = str.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 List<string> T = a.ToList<string>();
                 Dictionary<int, string> dic = new Dictionary<int, string>();
                 int count = 0;
                 if (ixOffline)
                 {
-                    try
+                    //遍历离线题库
+                    foreach (string s in T)
                     {
-                        //遍历离线题库
-                        foreach (string s in T)
+                        try
                         {
                             foreach (string ss in Directory.GetDirectories("ChoiceSource\\" + subject + "\\" + s))
                             {
@@ -365,18 +342,18 @@
                                 }
                             }
                         }
-                    }
-                    catch (System.IO.DirectoryNotFoundException)
-                    {
-                        MessageBox.Show("离线试题库不完整，请更新题库！");
-                    }
+                        catch (System.IO.DirectoryNotFoundException)
+                        {
+                            MessageBox.Show("离线试题库不完整，请更新题库！");
+                        }
+                    }                
                 }
                 else
                 {
-                    try
+                    //遍历在线题库
+                    foreach (string s in T)
                     {
-                        //遍历在线题库
-                        foreach (string s in T)
+                        try
                         {
                             foreach (string ss in DownloadFolder.ftpGetDir("ftp://202.118.26.80/ChoiceSource/" + subject + "/" + s, ""))
                             {
@@ -388,8 +365,8 @@
 
                             }
                         }
+                        catch (Exception) { MessageBox.Show("题库中没有相应的题！"); }
                     }
-                    catch (Exception) { MessageBox.Show("题库中没有相应的题！"); }
                 }
 
                 //随机抽取试题
